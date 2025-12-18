@@ -6,7 +6,6 @@ mode:
   description: Full desktop environment with all development tools
 
 modules:
-  - essentials
   - ssh
   - languages
   - plugins/neovim-custom

@@ -7,7 +7,6 @@ mode:
 
 modules:
   - plugins/lvm-expand
-  - essentials
   - ssh
   - languages
   - plugins/neovim-custom
