@@ -1,0 +1,22 @@
+module:
+  name: theme-manager
+  description: Theme switching and wallpaper management for Hyprland desktop
+  dependencies:
+    - hyprland
+    - kitty
+    - rofi
+  priority: 20
+
+lifecycle:
+  before: []
+  after:
+    - setup-themes
+
+packages:
+  dnf: []
+  cargo: []
+  npm: []
+
+stow:
+  target: $HOME
+  conflicts: warn

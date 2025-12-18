@@ -1,0 +1,35 @@
+#!/usr/bin/env fish
+# Setup theme system for hyprpunk
+
+echo "→ Setting up theme management..."
+
+# Get the hyprpunk cache directory (where profile is cloned)
+set hyprpunk_dir ~/.fedpunk/cache/external/github.com/hinriksnaer/hyprpunk
+
+# Create theme symlink directory
+mkdir -p ~/.config/hypr/themes
+
+# Link to hyprpunk themes
+if test -d "$hyprpunk_dir/themes"
+    # Create symlinks for all themes
+    for theme in $hyprpunk_dir/themes/*
+        set theme_name (basename $theme)
+        if not test -L ~/.config/hypr/themes/$theme_name
+            ln -sf $theme ~/.config/hypr/themes/$theme_name
+            echo "  Linked theme: $theme_name"
+        end
+    end
+    
+    # Set default theme if none set
+    if not test -e ~/.config/hypr/active-theme.conf
+        set default_theme "ayu-mirage"
+        if test -d "$hyprpunk_dir/themes/$default_theme"
+            ln -sf $hyprpunk_dir/themes/$default_theme/hyprland.conf ~/.config/hypr/active-theme.conf
+            echo "  Set default theme: $default_theme"
+        end
+    end
+else
+    echo "  Warning: themes directory not found at $hyprpunk_dir/themes"
+end
+
+echo "✓ Theme setup complete"

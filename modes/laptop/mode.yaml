@@ -1,0 +1,30 @@
+# Development Profile - Desktop Mode
+# Full desktop environment with all development tools
+
+mode:
+  name: desktop
+  description: Full desktop environment with all development tools
+
+modules:
+  - essentials
+  - ssh
+  - languages
+  - plugins/neovim-custom
+  - tmux
+  - lazygit
+  - btop
+  - yazi
+  - gh
+  - bitwarden
+  - claude
+  - fonts
+  - kitty
+  - rofi
+  - hyprland
+  - hyprlock
+  - plugins/theme-manager
+  - audio
+  - multimedia
+  - bluetui
+  - wifi
+  - plugins/vertex-ai

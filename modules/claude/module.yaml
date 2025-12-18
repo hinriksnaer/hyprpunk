@@ -1,0 +1,19 @@
+module:
+  name: claude
+  description: Claude Code CLI - AI-powered coding assistant
+  dependencies: []
+  priority: 6
+
+lifecycle:
+  before: []
+  after:
+    - install
+
+packages:
+  dnf: []
+  npm: []
+  cargo: []
+
+stow:
+  target: $HOME
+  conflicts: warn
