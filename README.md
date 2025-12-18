@@ -1,6 +1,25 @@
 # Hyprpunk
 
+<div align="center">
+
 **A complete Hyprland desktop environment profile for Fedpunk**
+
+*Build your perfect keyboard-driven workspace with live theming, vim-style navigation, and modern development tools*
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Fedora](https://img.shields.io/badge/Fedora-40+-blue.svg)](https://getfedora.org/)
+
+---
+
+## See It In Action
+
+[![Watch the demo](https://i.vimeocdn.com/video/2087154164-42913e946a9b98dc351ec6bb62ab47f5e651606ce934b35e2038324747d7cbfd-d_640)](https://vimeo.com/1140211449)
+
+*Click to watch: Live theme switching, keyboard-driven workflow, and seamless module deployment*
+
+### [**Watch Full Demo on Vimeo**](https://vimeo.com/1140211449)
+
+</div>
 
 ---
 
@@ -79,28 +98,44 @@ fedpunk profile deploy git@github.com:hinriksnaer/hyprpunk.git --mode container
 - **Slack** - Team collaboration (Flatpak)
 
 ### Themes (12 total)
-- Aetheria
-- Ayu Mirage
-- Catppuccin
-- Catppuccin Latte
-- Matte Black
-- Nord
-- Osaka Jade
-- Ristretto
-- Rose Pine
-- Rose Pine Dark
-- Tokyo Night
-- Torrentz Hydra
 
-Each theme includes:
-- Hyprland colors
-- Kitty terminal colors
-- Rofi styling
-- Btop theme
-- Mako notifications
-- Neovim colorscheme
-- Waybar CSS
-- Custom wallpapers
+**12 carefully curated themes with instant live-reload:**
+
+| Theme | Style | Best For |
+|-------|-------|----------|
+| **aetheria** | Ethereal purple/blue gradients | Creative work |
+| **ayu-mirage** | Warm desert tones | Extended coding sessions |
+| **catppuccin** | Soothing pastel (mocha) | Low-light environments |
+| **catppuccin-latte** | Light mode elegance | Bright workspaces |
+| **matte-black** | Pure minimalism | Distraction-free focus |
+| **nord** | Arctic cool tones | Scandinavian aesthetic |
+| **osaka-jade** | Vibrant teal/green | Energizing workflow |
+| **ristretto** | Rich espresso browns | Coffee-fueled coding |
+| **rose-pine** | Soft rose/pine palette | Gentle on the eyes |
+| **rose-pine-dark** | Deep rose/pine | Dark mode variant |
+| **tokyo-night** | Deep blues with neon | Cyberpunk vibes |
+| **torrentz-hydra** | Bold high contrast | Maximum readability |
+
+#### Theme Previews
+
+**Ayu Mirage** - Warm desert tones for extended coding
+![Ayu Mirage Theme](themes/ayu-mirage/theme.png)
+
+**Tokyo Night** - Deep blues with neon accents
+![Tokyo Night Theme](themes/tokyo-night/preview.png)
+
+**Torrentz Hydra** - Bold high-contrast scheme
+![Torrentz Hydra Theme](themes/torrentz-hydra/preview.png)
+
+#### What Each Theme Includes
+- Hyprland colors (borders, gaps, shadows)
+- Kitty terminal colors (live reload via SIGUSR1)
+- Rofi styling (launcher appearance)
+- Btop theme (system monitor colors)
+- Mako notifications (live reload via SIGUSR2)
+- Neovim colorscheme (live reload via RPC)
+- Waybar CSS (status bar theme)
+- Custom wallpapers (per-theme backgrounds)
 
 ### Theme Management
 
