@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 # Refresh/reapply the current theme (useful after config changes)
-# Usage: fedpunk-theme-refresh
+# Usage: hyprpunk-theme-refresh
 
 set active_theme_conf "$HOME/.config/hypr/active-theme.conf"
 
@@ -16,7 +16,7 @@ set current_line (grep "source.*themes.*hyprland.conf" "$active_theme_conf" 2>/d
 if test -n "$current_line"
     set theme_name (echo $current_line | sed 's|.*themes/\([^/]*\)/.*|\1|')
     echo "Refreshing theme: $theme_name"
-    fedpunk-theme-set $theme_name
+    hyprpunk-theme-set $theme_name
 else
     echo "Error: Could not detect theme from active-theme.conf"
     echo "File contents:"

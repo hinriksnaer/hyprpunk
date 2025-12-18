@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 # Set desktop theme components (Hyprland, Kitty, Rofi, Mako, wallpapers)
 # Also calls terminal theme switcher for consistent theming
-# Usage: fedpunk-theme-set-desktop <theme-name>
+# Usage: hyprpunk-theme-set-desktop <theme-name>
 
 # Find script directory for calling other scripts
 set script_dir (dirname (status -f))
@@ -59,10 +59,10 @@ function step
 end
 
 if test (count $argv) -lt 1
-    echo "Usage: fedpunk-theme-set-desktop <theme-name>"
+    echo "Usage: hyprpunk-theme-set-desktop <theme-name>"
     echo ""
     echo "Available themes:"
-    $script_dir/fedpunk-theme-list
+    $script_dir/hyprpunk-theme-list
     exit 1
 end
 
@@ -93,7 +93,7 @@ else
     error "Theme '$theme_name' does not exist"
     echo ""
     echo "Available themes:"
-    $script_dir/fedpunk-theme-list
+    $script_dir/hyprpunk-theme-list
     exit 1
 end
 
@@ -111,7 +111,7 @@ if test -f "$theme_path/hyprland.conf"
     set active_theme_conf "$HOME/.config/hypr/active-theme.conf"
     printf '%s\n' \
         '# Active Hyprland Theme (runtime-generated, gitignored)' \
-        '# This file is managed by fedpunk-theme-set-desktop' \
+        '# This file is managed by hyprpunk-theme-set-desktop' \
         '# Do not edit manually - use: fedpunk theme set <theme-name>' \
         '' \
         "source = \$HOME/.local/share/fedpunk/themes/$theme_name/hyprland.conf" \
@@ -174,7 +174,7 @@ end
 # Apply terminal themes
 echo ""
 info "Applying terminal themes"
-set terminal_result ($script_dir/fedpunk-theme-set-terminal $theme_name)
+set terminal_result ($script_dir/hyprpunk-theme-set-terminal $theme_name)
 set terminal_counts (string split ":" $terminal_result)
 set terminal_applied $terminal_counts[1]
 set terminal_skipped $terminal_counts[2]

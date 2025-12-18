@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 # List all available themes in the themes directory
-# Usage: fedpunk-theme-list
+# Usage: hyprpunk-theme-list
 
 # Find themes directory - works both before and after deployment
 if test -n "$FEDPUNK_PATH"

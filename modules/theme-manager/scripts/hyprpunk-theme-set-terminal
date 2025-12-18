@@ -1,10 +1,10 @@
 #!/usr/bin/env fish
 # Set terminal-only theme components (btop, neovim)
-# Usage: fedpunk-theme-set-terminal <theme-name>
+# Usage: hyprpunk-theme-set-terminal <theme-name>
 # This script handles only terminal application themes
 
 if test (count $argv) -lt 1
-    echo "Usage: fedpunk-theme-set-terminal <theme-name>"
+    echo "Usage: hyprpunk-theme-set-terminal <theme-name>"
     exit 1
 end
 

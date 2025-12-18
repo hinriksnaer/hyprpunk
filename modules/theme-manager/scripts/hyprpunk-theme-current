@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 # Get the currently active theme
-# Usage: fedpunk-theme-current
+# Usage: hyprpunk-theme-current
 
 # Find themes directory
 if test -n "$FEDPUNK_PATH"

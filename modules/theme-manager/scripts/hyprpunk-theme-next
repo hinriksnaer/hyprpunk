@@ -1,13 +1,13 @@
 #!/usr/bin/env fish
 # Cycle to the next theme in the list
-# Usage: fedpunk-theme-next
+# Usage: hyprpunk-theme-next
 
 set script_dir (dirname (status -f))
 set hyprland_conf "$HOME/.config/hypr/hyprland.conf"
 
-# Get all available themes (sorted) from fedpunk-theme-list (includes custom themes)
+# Get all available themes (sorted) from hyprpunk-theme-list (includes custom themes)
 set available_themes
-for theme_name in ($script_dir/fedpunk-theme-list)
+for theme_name in ($script_dir/hyprpunk-theme-list)
     # Convert pretty name back to theme name (lowercase, spaces to dashes)
     set theme_slug (echo $theme_name | string lower | string replace -a ' ' '-')
     set -a available_themes $theme_slug
@@ -48,5 +48,5 @@ end
 
 set next_theme $available_themes[$next_index]
 
-# Use fedpunk-theme-set to apply the theme
-fedpunk-theme-set $next_theme
+# Use hyprpunk-theme-set to apply the theme
+hyprpunk-theme-set $next_theme
