@@ -6,6 +6,7 @@ mode:
   description: Minimal development environment for containers/devcontainers
 
 modules:
+  - fish
   - ssh
   - plugins/neovim-custom
   - tmux
