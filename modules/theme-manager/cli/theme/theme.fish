@@ -73,7 +73,7 @@ function use --description "Switch to a theme"
 
     # Try profile-specific script name (e.g., hyprpunk-theme-set)
     set -l profile_name (basename "$active_profile")
-    for location in "$active_profile/scripts" "$active_profile/plugins/theme-manager/cli" "$active_profile/cli"
+    for location in "$active_profile/modules/theme-manager/scripts" "$active_profile/scripts"
         if test -x "$location/$profile_name-theme-set"
             set script_name "$location/$profile_name-theme-set"
             break
@@ -82,7 +82,7 @@ function use --description "Switch to a theme"
 
     # Fallback to generic fedpunk-theme-set
     if test -z "$script_name"
-        for location in "$active_profile/scripts" "$active_profile/plugins/theme-manager/cli"
+        for location in "$active_profile/modules/theme-manager/scripts" "$active_profile/scripts"
             if test -x "$location/fedpunk-theme-set"
                 set script_name "$location/fedpunk-theme-set"
                 break
@@ -117,7 +117,7 @@ function list --description "List available themes"
     end
 
     set -l active_profile (readlink -f "$active_config")
-    set -l script "$active_profile/scripts/fedpunk-theme-list"
+    set -l script "$active_profile/modules/theme-manager/scripts/hyprpunk-theme-list"
 
     if test -x "$script"
         exec $script
@@ -153,7 +153,7 @@ function current --description "Show current theme"
     end
 
     set -l active_profile (readlink -f "$active_config")
-    set -l script "$active_profile/scripts/fedpunk-theme-current"
+    set -l script "$active_profile/modules/theme-manager/scripts/hyprpunk-theme-current"
 
     if test -x "$script"
         exec $script
@@ -185,7 +185,7 @@ function select --description "Interactive theme selector"
     end
 
     set -l active_profile (readlink -f "$active_config")
-    set -l script "$active_profile/scripts/fedpunk-theme-select-cli"
+    set -l script "$active_profile/modules/theme-manager/scripts/hyprpunk-theme-select-cli"
 
     if test -x "$script"
         exec $script
@@ -211,7 +211,7 @@ function next --description "Switch to next theme"
     end
 
     set -l active_profile (readlink -f "$active_config")
-    set -l script "$active_profile/scripts/fedpunk-theme-next"
+    set -l script "$active_profile/modules/theme-manager/scripts/hyprpunk-theme-next"
 
     if test -x "$script"
         exec $script
@@ -237,7 +237,7 @@ function prev --description "Switch to previous theme"
     end
 
     set -l active_profile (readlink -f "$active_config")
-    set -l script "$active_profile/scripts/fedpunk-theme-prev"
+    set -l script "$active_profile/modules/theme-manager/scripts/hyprpunk-theme-prev"
 
     if test -x "$script"
         exec $script
@@ -263,7 +263,7 @@ function refresh --description "Refresh current theme"
     end
 
     set -l active_profile (readlink -f "$active_config")
-    set -l script "$active_profile/scripts/fedpunk-theme-refresh"
+    set -l script "$active_profile/modules/theme-manager/scripts/hyprpunk-theme-refresh"
 
     if test -x "$script"
         exec $script
