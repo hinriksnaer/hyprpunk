@@ -10,6 +10,7 @@ lifecycle:
 
 packages:
   dnf:
+    - fontconfig  # Provides fc-cache for font cache updates
     - adobe-source-code-pro-fonts
     - fira-code-fonts
     - fontawesome-fonts-all
