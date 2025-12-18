@@ -9,6 +9,7 @@ modules:
   - fish
   - ssh
   - plugins/neovim-custom
+  - plugins/theme-manager
   - tmux
   - lazygit
   - yazi
