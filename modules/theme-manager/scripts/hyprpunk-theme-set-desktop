@@ -66,17 +66,16 @@ if test (count $argv) -lt 1
     exit 1
 end
 
-# Find themes directory - works both before and after deployment
-if test -n "$FEDPUNK_PATH"
-    set themes_dir "$FEDPUNK_PATH/themes"
-    set active_config_themes_dir "$FEDPUNK_PATH/.active-config/themes"
-else if test -d "$HOME/.local/share/fedpunk/themes"
-    set themes_dir "$HOME/.local/share/fedpunk/themes"
-    set active_config_themes_dir "$HOME/.local/share/fedpunk/.active-config/themes"
+# Find themes directory - use active profile
+if test -L "$HOME/.local/share/fedpunk/.active-config"
+    set active_profile (readlink -f "$HOME/.local/share/fedpunk/.active-config")
+    set themes_dir "$active_profile/themes"
+else if test -n "$FEDPUNK_USER"
+    set themes_dir "$FEDPUNK_USER/.active-config/themes"
 else
     # Try to find relative to script location (for running from repo)
-    set themes_dir (realpath "$script_dir/../themes")
-    set active_config_themes_dir (realpath "$script_dir/../.active-config/themes")
+    set script_dir (dirname (status -f))
+    set themes_dir (realpath "$script_dir/../../themes")
 end
 
 set hyprland_conf "$HOME/.config/hypr/hyprland.conf"

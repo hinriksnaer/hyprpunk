@@ -2,11 +2,16 @@
 # Get the currently active theme
 # Usage: hyprpunk-theme-current
 
-# Find themes directory
-if test -n "$FEDPUNK_PATH"
-    set themes_dir "$FEDPUNK_PATH/themes"
-else if test -d "$HOME/.local/share/fedpunk/themes"
-    set themes_dir "$HOME/.local/share/fedpunk/themes"
+# Find themes directory - use active profile
+if test -L "$HOME/.local/share/fedpunk/.active-config"
+    set active_profile (readlink -f "$HOME/.local/share/fedpunk/.active-config")
+    set themes_dir "$active_profile/themes"
+else if test -n "$FEDPUNK_USER"
+    set themes_dir "$FEDPUNK_USER/.active-config/themes"
+else
+    # Try to find relative to script location (for running from repo)
+    set script_dir (dirname (status -f))
+    set themes_dir (realpath "$script_dir/../../themes")
 end
 
 # First try active-theme.conf (most accurate for desktop)
