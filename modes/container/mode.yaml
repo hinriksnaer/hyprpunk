@@ -8,12 +8,12 @@ mode:
 modules:
   - fish
   - ssh
-  - plugins/neovim-custom
-  - plugins/theme-manager
+  - neovim-custom
+  - theme-manager
   - tmux
   - lazygit
   - yazi
   - gh
   - bitwarden
   - claude
-  - plugins/vertex-ai
+  - vertex-ai

@@ -8,7 +8,7 @@ mode:
 modules:
   - ssh
   - languages
-  - plugins/neovim-custom
+  - neovim-custom
   - tmux
   - lazygit
   - btop
@@ -21,9 +21,9 @@ modules:
   - rofi
   - hyprland
   - hyprlock
-  - plugins/theme-manager
+  - theme-manager
   - audio
   - multimedia
   - bluetui
   - wifi
-  - plugins/vertex-ai
+  - vertex-ai

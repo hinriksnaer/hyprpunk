@@ -6,10 +6,10 @@ mode:
   description: Full desktop environment with all development tools
 
 modules:
-  - plugins/lvm-expand
+  - lvm-expand
   - ssh
   - languages
-  - plugins/neovim-custom
+  - neovim-custom
   - tmux
   - lazygit
   - btop
@@ -17,17 +17,17 @@ modules:
   - gh
   - bitwarden
   - claude
-  - plugins/dev-extras
+  - dev-extras
   - fonts
   - kitty
   - rofi
   - hyprland
   - hyprlock
-  - plugins/theme-manager
+  - theme-manager
   - audio
   - multimedia
   - zen-browser
   - nvidia
   - bluetui
   - wifi
-  - plugins/fancontrol
+  - fancontrol
