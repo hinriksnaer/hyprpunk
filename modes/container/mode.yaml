@@ -11,6 +11,7 @@ modules:
   - neovim-custom
   - theme-manager
   - tmux
+  - btop
   - lazygit
   - yazi
   - gh
