@@ -16,5 +16,4 @@ modules:
   - yazi
   - gh
   - bitwarden
-  - claude
-  - vertex-ai
+  - git@gitlab.com:redhat/rhel-ai/team-pytorch/fedpunk-modules/claude.git
