@@ -1,0 +1,28 @@
+# Hyprpunk Test Container
+# Tests hyprpunk installation without full Hyprland (GUI-less)
+FROM registry.fedoraproject.org/fedora:42
+
+# Install fedpunk CLI from COPR
+RUN dnf install -y 'dnf-command(copr)' && \
+    dnf copr enable -y hinriksnaer/fedpunk && \
+    dnf install -y fedpunk git fish && \
+    dnf clean all
+
+# Create test user
+RUN useradd -m -G wheel -s /bin/bash testuser && \
+    echo "testuser:testuser" | chpasswd && \
+    echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+# Switch to test user
+USER testuser
+WORKDIR /home/testuser
+
+# Set up environment
+ENV HOME=/home/testuser
+ENV USER=testuser
+
+# Copy test script
+COPY --chown=testuser:testuser test-installation.sh /home/testuser/
+RUN chmod +x /home/testuser/test-installation.sh
+
+CMD ["/bin/bash"]
