@@ -37,4 +37,4 @@ end
 rm -rf $TMPDIR
 
 ui-success "Neovim installed to ~/.local/bin/nvim"
-ui-info "Version: "(nvim --version | head -n1)
+ui-info "Version: "(~/.local/bin/nvim --version | head -n1)
