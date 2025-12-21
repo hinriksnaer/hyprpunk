@@ -2,7 +2,7 @@
 # Wallpaper selector with image previews using swaybg
 
 THEME_DIR="$HOME/.local/share/fedpunk/themes"
-CURRENT_THEME=$(fedpunk-theme-current 2>/dev/null | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+CURRENT_THEME=$(hyprpunk-theme-current 2>/dev/null | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
 WALLPAPER_DIR="$THEME_DIR/$CURRENT_THEME/backgrounds"
 CURRENT_WALLPAPER=$(readlink -f "$HOME/.config/hypr/wallpapers/current" 2>/dev/null)
 

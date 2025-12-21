@@ -13,10 +13,10 @@ end
 set script_dir (dirname (status -f))
 
 # Get list of available themes
-set theme_list (fedpunk-theme-list)
+set theme_list (hyprpunk-theme-list)
 
 # Save current theme to restore on cancel
-set original_theme (fedpunk-theme-current 2>/dev/null)
+set original_theme (hyprpunk-theme-current 2>/dev/null)
 set last_previewed_theme $original_theme
 
 # Find index of current theme
@@ -57,7 +57,7 @@ while test "$keep_running" = true
     if test $exit_code -ne 0
         # Revert to original theme
         if test "$last_previewed_theme" != "$original_theme"
-            $script_dir/fedpunk-theme-set "$original_theme" >/dev/null 2>&1 &
+            hyprpunk-theme-set "$original_theme" >/dev/null 2>&1 &
         end
         exit 0
     end
@@ -76,7 +76,7 @@ while test "$keep_running" = true
             notify-send "Theme Switching" "Applying theme: $pretty_name" -t 2000
 
             # Apply final theme
-            $script_dir/fedpunk-theme-set "$selected_theme" >/dev/null 2>&1 &
+            hyprpunk-theme-set "$selected_theme" >/dev/null 2>&1 &
         end
 
         exit 0

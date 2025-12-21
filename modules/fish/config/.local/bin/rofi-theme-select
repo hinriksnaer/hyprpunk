@@ -9,10 +9,10 @@ if test -f "$FEDPUNK_INSTALL/helpers/all.fish"
 end
 
 # Get list of available themes
-set theme_list (fedpunk-theme-list)
+set theme_list (hyprpunk-theme-list)
 
 # Get current theme (may be empty if theme was deleted)
-set current_theme (fedpunk-theme-current 2>/dev/null)
+set current_theme (hyprpunk-theme-current 2>/dev/null)
 
 # Mark current theme with indicator and track its index
 set display_list
@@ -54,4 +54,4 @@ set pretty_name (echo $selected_theme | string trim)
 notify-send "Theme Switching" "Applying theme: $pretty_name" -t 2000
 
 # Apply the theme silently in background
-nohup $HOME/.local/bin/fedpunk-theme-set "$theme_name" >/dev/null 2>&1 &
+nohup hyprpunk-theme-set "$theme_name" >/dev/null 2>&1 &

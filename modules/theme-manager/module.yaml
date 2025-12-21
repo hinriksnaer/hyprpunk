@@ -7,7 +7,6 @@ module:
 lifecycle:
   before: []
   after:
-    - setup-theme-manager
     - setup-themes
 
 packages:
