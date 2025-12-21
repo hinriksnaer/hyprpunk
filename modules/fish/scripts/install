@@ -17,16 +17,16 @@ echo "[fish/install] Fish location: $fish_path" >&2
 # Set fish as default shell if not already
 if test "$current_shell" != "$fish_path"
     echo "[fish/install] Setting fish as default shell..." >&2
-    echo "[fish/install] Running: sudo chsh -s $fish_path $USER" >&2
-    sudo chsh -s $fish_path $USER
+    echo "[fish/install] Running: chsh -s $fish_path" >&2
+    chsh -s $fish_path
 
     if test $status -eq 0
         echo "[fish/install] ✓ Fish is now your default shell" >&2
         echo "[fish/install]   Please log out and back in for changes to take effect" >&2
     else
-        echo "[fish/install] ✗ Failed to set fish as default shell (exit code: $status)" >&2
-        echo "[fish/install]   You may need to run: sudo chsh -s $fish_path $USER" >&2
-        exit 1
+        echo "[fish/install] ⚠ Could not set fish as default shell automatically" >&2
+        echo "[fish/install]   You can set it manually later with: chsh -s $fish_path" >&2
+        echo "[fish/install]   Continuing with installation..." >&2
     end
 else
     echo "[fish/install] ✓ Fish is already your default shell" >&2
