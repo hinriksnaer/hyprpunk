@@ -5,6 +5,60 @@ source "$FEDPUNK_ROOT/lib/fish/ui.fish"
 
 ui-info "Setting up Hyprland environment"
 
+# Create placeholder config files that are sourced by hyprland.conf
+# These prevent Hyprland from failing on first startup
+ui-spin --title "Creating placeholder config files..." -- fish -c '
+    # Create active-mode.conf placeholder (will be populated by mode-specific config)
+    if not test -e ~/.config/hypr/active-mode.conf
+        echo "# Active mode configuration (will be set by fedpunk)" > ~/.config/hypr/active-mode.conf
+    end
+
+    # Create active-theme.conf placeholder (will be populated by setup-themes)
+    if not test -e ~/.config/hypr/active-theme.conf
+        echo "# Active theme configuration (will be set by theme manager)" > ~/.config/hypr/active-theme.conf
+    end
+'
+
+if test $status -eq 0
+    ui-success "Placeholder config files created"
+else
+    ui-warning "Failed to create placeholder files"
+end
+
+# Link mode-specific Hyprland configuration to active-mode.conf
+# The profile root is 3 levels up from this script (modules/hyprland/scripts/)
+set script_dir (dirname (status --current-filename))
+set profile_root (realpath "$script_dir/../../..")
+
+# Try to detect the active mode from fedpunk's active-profile file
+if test -f ~/.config/hyprpunk/active-profile
+    set active_mode (cat ~/.config/hyprpunk/active-profile 2>/dev/null)
+else if test -f ~/.local/share/fedpunk/.active-profile
+    set active_mode (cat ~/.local/share/fedpunk/.active-profile 2>/dev/null)
+else
+    # Fallback: try to detect from profile path
+    set active_mode ""
+end
+
+# If we found the mode and its hypr.conf exists, link it
+if test -n "$active_mode" -a -f "$profile_root/modes/$active_mode/hypr.conf"
+    ui-spin --title "Linking mode configuration..." -- fish -c '
+        echo "# Active Mode: '"$active_mode"'
+# This file is runtime-generated and gitignored
+# Managed by fedpunk profile system
+
+source = '"$profile_root"'/modes/'"$active_mode"'/hypr.conf" > ~/.config/hypr/active-mode.conf
+    '
+
+    if test $status -eq 0
+        ui-success "Mode configuration linked: $active_mode"
+    else
+        ui-warning "Failed to link mode configuration"
+    end
+else
+    ui-info "No mode-specific Hyprland configuration found (this is OK)"
+end
+
 # Update user directories
 ui-spin --title "Updating user directories..." -- fish -c '
     xdg-user-dirs-update >/dev/null 2>&1
