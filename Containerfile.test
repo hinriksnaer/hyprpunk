@@ -4,7 +4,7 @@ FROM registry.fedoraproject.org/fedora:42
 
 # Install fedpunk CLI from COPR
 RUN dnf install -y 'dnf-command(copr)' && \
-    dnf copr enable -y hinriksnaer/fedpunk && \
+    dnf copr enable -y hinriksnaer/fedpunk-unstable && \
     dnf install -y fedpunk git fish && \
     dnf clean all
 
