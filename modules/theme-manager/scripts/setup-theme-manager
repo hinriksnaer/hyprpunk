@@ -1,0 +1,34 @@
+#!/usr/bin/env fish
+# Setup theme manager - create fedpunk-theme-* symlinks
+# These are expected by rofi scripts and other components
+
+source "$FEDPUNK_ROOT/lib/fish/ui.fish"
+
+ui-info "Setting up theme manager"
+
+# Create symlinks for theme management commands
+ui-spin --title "Creating theme command symlinks..." -- fish -c '
+    mkdir -p ~/.local/bin
+
+    # Get the script directory (modules/theme-manager/scripts)
+    set script_dir (dirname (status --current-filename))
+
+    # Create symlinks for all hyprpunk-theme-* and hyprpunk-wallpaper-* scripts
+    for script in "$script_dir"/hyprpunk-theme-* "$script_dir"/hyprpunk-wallpaper-*
+        if test -f "$script"
+            set basename_script (basename "$script")
+            # Create fedpunk-* symlink pointing to hyprpunk-* script
+            set fedpunk_name (string replace "hyprpunk-" "fedpunk-" "$basename_script")
+            ln -sf "$script" ~/.local/bin/$fedpunk_name
+        end
+    end
+'
+
+if test $status -eq 0
+    ui-success "Theme command symlinks created"
+else
+    ui-error "Failed to create theme command symlinks"
+    exit 1
+end
+
+ui-success "Theme manager setup complete"

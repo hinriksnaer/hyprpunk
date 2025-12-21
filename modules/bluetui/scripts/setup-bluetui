@@ -1,0 +1,22 @@
+#!/usr/bin/env fish
+# Setup bluetui - create fedpunk-bluetooth symlink for keybinding compatibility
+
+source "$FEDPUNK_ROOT/lib/fish/ui.fish"
+
+ui-info "Setting up bluetui"
+
+# Create fedpunk-bluetooth symlink to bluetui
+ui-spin --title "Creating bluetooth command symlink..." -- fish -c '
+    mkdir -p ~/.local/bin
+
+    # Create symlink: fedpunk-bluetooth -> bluetui
+    ln -sf ~/.cargo/bin/bluetui ~/.local/bin/fedpunk-bluetooth
+'
+
+if test $status -eq 0
+    ui-success "Bluetooth command symlink created"
+else
+    ui-warning "Failed to create bluetooth command symlink"
+end
+
+ui-success "Bluetui setup complete"

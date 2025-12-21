@@ -6,7 +6,8 @@ module:
 
 lifecycle:
   before: []
-  after: []
+  after:
+    - setup-bluetui
 
 packages:
   dnf:
