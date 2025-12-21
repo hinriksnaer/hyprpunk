@@ -183,7 +183,7 @@ success "Terminal themes applied"
 
 # Set wallpaper from theme
 echo ""
-if step "Setting wallpaper" "$script_dir/fedpunk-wallpaper-set $theme_name"
+if step "Setting wallpaper" "$script_dir/hyprpunk-wallpaper-set $theme_name"
     # Success handled by step function
 end
 
