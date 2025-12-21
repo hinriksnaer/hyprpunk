@@ -36,7 +36,7 @@ function section() {
 }
 
 section "INSTALLING HYPRPUNK"
-fedpunk https://github.com/hinriksnaer/hyprpunk <<EOF
+fedpunk profile deploy https://github.com/hinriksnaer/hyprpunk <<EOF
 laptop
 EOF
 
