@@ -5,6 +5,30 @@ source "$FEDPUNK_ROOT/lib/fish/ui.fish"
 
 ui-info "Setting up Fedpunk themes"
 
+# Get the profile root (script is in modules/hyprland/scripts/)
+set script_dir (dirname (status --current-filename))
+set profile_root (realpath "$script_dir/../../..")
+
+# Deploy profile themes to fedpunk themes directory
+if test -d "$profile_root/themes"
+    ui-spin --title "Deploying profile themes..." -- fish -c '
+        mkdir -p "'$FEDPUNK_ROOT'/themes"
+        for theme in "'$profile_root'/themes"/*
+            if test -d "$theme"
+                set theme_name (basename "$theme")
+                ln -snf "$theme" "'$FEDPUNK_ROOT'/themes/$theme_name"
+            end
+        end
+    '
+
+    if test $status -eq 0
+        ui-success "Profile themes deployed"
+    else
+        ui-error "Failed to deploy profile themes"
+        exit 1
+    end
+end
+
 # Setup theme links
 ui-spin --title "Creating theme directories..." -- fish -c '
     mkdir -p ~/.config/fedpunk/themes ~/.config/fedpunk/current

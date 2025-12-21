@@ -9,7 +9,7 @@ lifecycle:
 
 packages:
   dnf:
-    - rofi
+    - rofi-wayland
   cargo: []
   npm: []
 

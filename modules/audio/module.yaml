@@ -31,7 +31,6 @@ packages:
     # Audio control utilities
     - pavucontrol
     - playerctl
-    - wpctl
     - alsa-utils
     - pulseaudio-utils
     # Bluetooth audio plugin (core Bluetooth via bluetooth module)
