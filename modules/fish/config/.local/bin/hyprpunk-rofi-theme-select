@@ -13,14 +13,16 @@ set theme_list (hyprpunk-theme-list)
 
 # Get current theme (may be empty if theme was deleted)
 set current_theme (hyprpunk-theme-current 2>/dev/null)
+# Normalize to lowercase with dashes for comparison
+set current_theme_normalized (echo $current_theme | string lower | string replace -a ' ' '-')
 
 # Mark current theme with indicator and track its index
 set display_list
 set current_index -1
 set index 0
 for theme in $theme_list
-    # Only mark if we have a valid current theme and it matches
-    if test -n "$current_theme" -a "$theme" = "$current_theme"
+    # Only mark if we have a valid current theme and it matches (normalize both)
+    if test -n "$current_theme_normalized" -a "$theme" = "$current_theme_normalized"
         set display_list $display_list "● $theme"
         set current_index $index
     else
