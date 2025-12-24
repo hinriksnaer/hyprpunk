@@ -112,19 +112,24 @@ if not test -e ~/.config/hypr/active-theme.conf; or not test -L ~/.config/fedpun
             > ~/.config/hypr/active-theme.conf
     end
 
-    # Set initial wallpaper
-    if test -L ~/.config/fedpunk/current/theme
+    echo "  ✓ Default theme set: $default_theme"
+else
+    echo "  Theme already configured, skipping initialization"
+end
+
+# Set wallpaper (always run, even if theme already configured)
+if test -L ~/.config/fedpunk/current/theme
+    if not test -e ~/.config/hypr/wallpapers/current; or not test -L ~/.config/fedpunk/current/background
         set first_bg (find ~/.config/fedpunk/current/theme/backgrounds -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) 2>/dev/null | sort | head -1)
         if test -n "$first_bg"
             mkdir -p ~/.config/hypr/wallpapers
             ln -snf "$first_bg" ~/.config/fedpunk/current/background
             ln -snf "$first_bg" ~/.config/hypr/wallpapers/current
+            echo "  ✓ Wallpaper configured"
         end
+    else
+        echo "  Wallpaper already configured"
     end
-
-    echo "  ✓ Default theme set: $default_theme"
-else
-    echo "  Theme already configured, skipping initialization"
 end
 
 echo "✓ Theme setup complete"
