@@ -119,17 +119,27 @@ end
 
 # Set wallpaper (always run, even if theme already configured)
 if test -L ~/.config/fedpunk/current/theme
-    if not test -e ~/.config/hypr/wallpapers/current; or not test -L ~/.config/fedpunk/current/background
-        set first_bg (find ~/.config/fedpunk/current/theme/backgrounds -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) 2>/dev/null | sort | head -1)
-        if test -n "$first_bg"
-            mkdir -p ~/.config/hypr/wallpapers
-            ln -snf "$first_bg" ~/.config/fedpunk/current/background
-            ln -snf "$first_bg" ~/.config/hypr/wallpapers/current
-            echo "  ✓ Wallpaper configured"
+    # Always try to set wallpaper if either symlink is missing
+    if not test -L ~/.config/hypr/wallpapers/current; or not test -L ~/.config/fedpunk/current/background
+        set theme_bg_dir (readlink -f ~/.config/fedpunk/current/theme)/backgrounds
+        if test -d "$theme_bg_dir"
+            set first_bg (find "$theme_bg_dir" -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) 2>/dev/null | sort | head -1)
+            if test -n "$first_bg"
+                mkdir -p ~/.config/hypr/wallpapers
+                ln -sf "$first_bg" ~/.config/fedpunk/current/background
+                ln -sf "$first_bg" ~/.config/hypr/wallpapers/current
+                echo "  ✓ Wallpaper configured: $(basename "$first_bg")"
+            else
+                echo "  ⚠ No wallpapers found in theme"
+            end
+        else
+            echo "  ⚠ Theme backgrounds directory not found"
         end
     else
         echo "  Wallpaper already configured"
     end
+else
+    echo "  ⚠ No theme symlink found, skipping wallpaper setup"
 end
 
 echo "✓ Theme setup complete"
