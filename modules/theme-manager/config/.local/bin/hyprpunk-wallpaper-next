@@ -3,7 +3,14 @@
 # Usage: fedpunk-wallpaper-next
 # Uses swaybg (like omarchy)
 
-set themes_dir "$HOME/.local/share/fedpunk/themes"
+# Find themes directory using active profile
+if test -L "$HOME/.local/share/fedpunk/.active-config"
+    set active_profile (readlink -f "$HOME/.local/share/fedpunk/.active-config")
+    set themes_dir "$active_profile/themes"
+else
+    notify-send "Error" "Active profile not found" -t 3000 -u critical
+    exit 1
+end
 set hyprland_conf "$HOME/.config/hypr/hyprland.conf"
 set current_wallpaper_link "$HOME/.config/hypr/wallpapers/current"
 

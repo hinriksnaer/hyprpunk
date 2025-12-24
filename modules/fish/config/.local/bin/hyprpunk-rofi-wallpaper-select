@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
 # Wallpaper selector with image previews using swaybg
 
-THEME_DIR="$HOME/.local/share/fedpunk/themes"
+# Find theme directory using active profile
+if [[ -L "$HOME/.local/share/fedpunk/.active-config" ]]; then
+    ACTIVE_PROFILE=$(readlink -f "$HOME/.local/share/fedpunk/.active-config")
+    THEME_DIR="$ACTIVE_PROFILE/themes"
+else
+    notify-send "Error" "Active profile not found"
+    exit 1
+fi
+
 CURRENT_THEME=$(hyprpunk-theme-current 2>/dev/null | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
 WALLPAPER_DIR="$THEME_DIR/$CURRENT_THEME/backgrounds"
 CURRENT_WALLPAPER=$(readlink -f "$HOME/.config/hypr/wallpapers/current" 2>/dev/null)
