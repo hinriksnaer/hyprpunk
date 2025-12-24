@@ -136,12 +136,11 @@ ui-spin --title "Setting up desktop themes..." -- fish -c '
     # hyprland active-theme
     mkdir -p ~/.config/hypr
     if test -f "'$theme_path'/hyprland.conf"
-        set theme_name (basename "'$theme_path'")
         echo "# Active Hyprland Theme (runtime-generated, gitignored)
-# This file is managed by fedpunk-theme-set-desktop
+# This file is managed by hyprpunk-theme-set-desktop
 # Do not edit manually - use: fedpunk theme set <theme-name>
 
-source = \$HOME/.local/share/fedpunk/themes/$theme_name/hyprland.conf" > ~/.config/hypr/active-theme.conf
+source = '$theme_path'/hyprland.conf" > ~/.config/hypr/active-theme.conf
     end
 '
 

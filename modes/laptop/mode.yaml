@@ -1,11 +1,12 @@
-# Development Profile - Desktop Mode
-# Full desktop environment with all development tools
+# Development Profile - Laptop Mode
+# Full laptop environment with all development tools
 
 mode:
-  name: desktop
-  description: Full desktop environment with all development tools
+  name: laptop
+  description: Full laptop environment with all development tools
 
 modules:
+  - fish
   - ssh
   - languages
   - neovim-custom

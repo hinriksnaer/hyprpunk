@@ -113,7 +113,7 @@ if test -f "$theme_path/hyprland.conf"
         '# This file is managed by hyprpunk-theme-set-desktop' \
         '# Do not edit manually - use: fedpunk theme set <theme-name>' \
         '' \
-        "source = \$HOME/.local/share/fedpunk/themes/$theme_name/hyprland.conf" \
+        "source = $theme_path/hyprland.conf" \
         > $active_theme_conf
     if test $status -eq 0
         success "Applying Hyprland theme"

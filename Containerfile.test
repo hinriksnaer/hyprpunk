@@ -21,7 +21,8 @@ WORKDIR /home/testuser
 ENV HOME=/home/testuser
 ENV USER=testuser
 
-# Copy test script
+# Copy hyprpunk repository and test script
+COPY --chown=testuser:testuser . /home/testuser/hyprpunk/
 COPY --chown=testuser:testuser test-installation.sh /home/testuser/
 RUN chmod +x /home/testuser/test-installation.sh
 

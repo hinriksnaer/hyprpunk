@@ -3,6 +3,7 @@ module:
   description: Wayland tiling compositor with full desktop environment
   dependencies:
     - kitty
+    - theme-manager
 
 lifecycle:
   before: []
