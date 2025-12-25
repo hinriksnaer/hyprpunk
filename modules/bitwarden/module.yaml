@@ -1,7 +1,8 @@
 module:
   name: bitwarden
   description: Bitwarden CLI - Official command-line password manager
-  dependencies: []
+  dependencies:
+    - system-config
   priority: 6
 
 lifecycle:
