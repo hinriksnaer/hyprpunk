@@ -3,6 +3,7 @@ module:
   description: LazyVim - Neovim distribution with LSP, DAP, and modern plugins preconfigured
   dependencies:
     - cli-tools
+    - nodejs
   priority: 7
 
 lifecycle:
