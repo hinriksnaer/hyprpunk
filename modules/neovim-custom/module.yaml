@@ -2,7 +2,7 @@ module:
   name: neovim-custom
   description: Custom Neovim configuration with advanced LSP, DAP, and plugin setup
   dependencies:
-    - nodejs
+    - cli-tools
   priority: 7
 
 lifecycle:
