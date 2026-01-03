@@ -5,7 +5,7 @@ return {
     build = ':TSUpdate', -- keep parsers up-to-date
     event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
-      { 'nvim-treesitter/nvim-treesitter-textobjects' },
+      { 'nvim-treesitter/nvim-treesitter-textobjects', lazy = true },
       { 'folke/which-key.nvim' },
     },
     keys = function()
