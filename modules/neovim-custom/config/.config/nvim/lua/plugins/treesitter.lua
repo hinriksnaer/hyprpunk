@@ -5,7 +5,6 @@ return {
     build = ':TSUpdate', -- keep parsers up-to-date
     event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
-      { 'nvim-treesitter/nvim-treesitter-textobjects', lazy = true },
       { 'folke/which-key.nvim' },
     },
     keys = function()
@@ -49,21 +48,32 @@ return {
           node_decremental = '<BS>',
         },
       },
-      textobjects = {
-        select = {
-          enable = true,
-          lookahead = true,
-          keymaps = {
-            ['af'] = '@function.outer',
-            ['if'] = '@function.inner',
-            ['ac'] = '@class.outer',
-            ['ic'] = '@class.inner',
-          },
-        },
-      },
     },
     config = function(_, opts)
       require('nvim-treesitter.configs').setup(opts)
+    end,
+  },
+
+  -- Textobjects loaded separately after treesitter is configured
+  {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    event = { 'BufReadPost', 'BufNewFile' },
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('nvim-treesitter.configs').setup {
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+              ['af'] = '@function.outer',
+              ['if'] = '@function.inner',
+              ['ac'] = '@class.outer',
+              ['ic'] = '@class.inner',
+            },
+          },
+        },
+      }
     end,
   },
 }
