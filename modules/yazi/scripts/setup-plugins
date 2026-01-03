@@ -5,7 +5,7 @@ source "$FEDPUNK_ROOT/lib/fish/ui.fish"
 
 ui-info "Installing Yazi flavors for Fedpunk themes"
 
-# Install flavors using ya pack
+# Install flavors using ya pkg (renamed from ya pack in newer yazi versions)
 set flavors \
     "yazi-rs/flavors:catppuccin-mocha" \
     "yazi-rs/flavors:catppuccin-latte" \
@@ -17,7 +17,7 @@ set flavors \
 
 for flavor in $flavors
     ui-info "Installing $flavor"
-    ya pack -a $flavor >/dev/null 2>&1
+    ya pkg add $flavor >/dev/null 2>&1
     if test $status -eq 0
         ui-success "Installed $flavor"
     else
@@ -37,7 +37,7 @@ set plugins \
 
 for plugin in $plugins
     ui-info "Installing $plugin"
-    ya pack -a $plugin >/dev/null 2>&1
+    ya pkg add $plugin >/dev/null 2>&1
     if test $status -eq 0
         ui-success "Installed $plugin"
     else
