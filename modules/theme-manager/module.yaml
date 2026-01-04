@@ -6,7 +6,8 @@ module:
 
 lifecycle:
   before: []
-  after: []
+  after:
+    - init-default-theme
 
 packages:
   dnf: []

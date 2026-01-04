@@ -2,8 +2,8 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate', -- keep parsers up-to-date
-    event = { 'BufReadPost', 'BufNewFile' },
+    build = ':TSUpdate',
+    lazy = false, -- nvim-treesitter doesn't support lazy-loading
     dependencies = {
       { 'folke/which-key.nvim' },
     },
@@ -13,12 +13,12 @@ return {
         { '<leader>T', group = '󰦨 Treesitter' },
         { '<leader>Ti', '<cmd>TSInstallInfo<cr>', desc = 'Install info' },
         { '<leader>Tu', '<cmd>TSUpdate<cr>', desc = 'Update parsers' },
-        { '<leader>Tp', '<cmd>TSPlaygroundToggle<cr>', desc = 'Toggle Playground' },
       }
       return {}
     end,
-    opts = {
-      ensure_installed = {
+    config = function()
+      -- New nvim-treesitter API - just install parsers
+      local parsers = {
         'lua',
         'vim',
         'vimdoc',
@@ -29,28 +29,30 @@ return {
         'css',
         'json',
         'bash',
+        'regex',
         'markdown',
         'markdown_inline',
-      },
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-      },
-      indent = {
-        enable = true,
-      },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = '<CR>',
-          node_incremental = '<CR>',
-          scope_incremental = '<S-CR>',
-          node_decremental = '<BS>',
-        },
-      },
-    },
-    config = function(_, opts)
-      require('nvim-treesitter.configs').setup(opts)
+      }
+
+      -- Install parsers asynchronously
+      require('nvim-treesitter').install(parsers)
+
+      -- Enable treesitter highlighting via autocmd
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = { 'lua', 'vim', 'python', 'javascript', 'typescript', 'html', 'css', 'json', 'bash', 'markdown' },
+        callback = function()
+          vim.treesitter.start()
+        end,
+      })
+
+      -- Enable treesitter-based folding
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = { 'lua', 'vim', 'python', 'javascript', 'typescript', 'html', 'css', 'json', 'bash', 'markdown' },
+        callback = function()
+          vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+          vim.wo[0][0].foldmethod = 'expr'
+        end,
+      })
     end,
   },
 }

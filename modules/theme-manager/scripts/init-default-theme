@@ -1,0 +1,14 @@
+#!/usr/bin/env fish
+# Initialize default theme if none is set
+# Uses existing hyprpunk-theme-set which automatically handles desktop vs terminal mode
+
+# Check if theme is already set
+if hyprpunk-theme-current >/dev/null 2>&1
+    echo "Theme already configured: $(hyprpunk-theme-current)"
+    exit 0
+end
+
+# Set default theme
+set default_theme "ayu-mirage"
+echo "Initializing default theme: $default_theme"
+hyprpunk-theme-set $default_theme

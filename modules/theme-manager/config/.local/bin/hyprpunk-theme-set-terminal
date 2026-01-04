@@ -35,6 +35,10 @@ end
 set applied_count 0
 set skipped_count 0
 
+# Create theme symlink for tracking current theme
+mkdir -p ~/.config/fedpunk/current
+ln -snf $theme_path ~/.config/fedpunk/current/theme
+
 # Apply btop theme (symlink works fine for btop)
 set btop_source "$theme_path/btop.theme"
 set btop_dest "$HOME/.config/btop/themes/active.theme"
