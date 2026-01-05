@@ -2,8 +2,10 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
     build = ':TSUpdate',
-    lazy = false, -- nvim-treesitter doesn't support lazy-loading
+    event = { 'BufReadPost', 'BufNewFile', 'VeryLazy' },
+    cmd = { 'TSUpdate', 'TSInstall', 'TSInstallInfo', 'TSUninstall' },
     dependencies = {
       { 'folke/which-key.nvim' },
     },
@@ -16,41 +18,73 @@ return {
       }
       return {}
     end,
-    config = function()
-      -- New nvim-treesitter API - just install parsers
-      local parsers = {
-        'lua',
-        'vim',
-        'vimdoc',
-        'python',
-        'javascript',
-        'typescript',
-        'html',
-        'css',
-        'json',
+    opts = {
+      ensure_installed = {
         'bash',
-        'regex',
+        'css',
+        'html',
+        'javascript',
+        'json',
+        'lua',
+        'luadoc',
         'markdown',
         'markdown_inline',
-      }
+        'python',
+        'regex',
+        'typescript',
+        'vim',
+        'vimdoc',
+      },
+    },
+    config = function(_, opts)
+      local TS = require 'nvim-treesitter'
 
-      -- Install parsers asynchronously
-      require('nvim-treesitter').install(parsers)
+      -- Sanity check for new API
+      if not TS.setup then
+        vim.notify('nvim-treesitter: please update to main branch', vim.log.levels.ERROR)
+        return
+      end
 
-      -- Enable treesitter highlighting via autocmd
+      -- Setup treesitter with opts
+      TS.setup(opts)
+
+      -- Install missing parsers
+      local installed = TS.get_installed and TS.get_installed() or {}
+      local installed_set = {}
+      for _, lang in ipairs(installed) do
+        installed_set[lang] = true
+      end
+
+      local to_install = vim.tbl_filter(function(lang)
+        return not installed_set[lang]
+      end, opts.ensure_installed or {})
+
+      if #to_install > 0 then
+        TS.install(to_install)
+      end
+
+      -- Single autocmd for all treesitter features
       vim.api.nvim_create_autocmd('FileType', {
-        pattern = { 'lua', 'vim', 'python', 'javascript', 'typescript', 'html', 'css', 'json', 'bash', 'markdown' },
-        callback = function()
-          vim.treesitter.start()
-        end,
-      })
+        group = vim.api.nvim_create_augroup('treesitter_setup', { clear = true }),
+        callback = function(ev)
+          local lang = vim.treesitter.language.get_lang(ev.match)
+          if not lang then
+            return
+          end
 
-      -- Enable treesitter-based folding
-      vim.api.nvim_create_autocmd('FileType', {
-        pattern = { 'lua', 'vim', 'python', 'javascript', 'typescript', 'html', 'css', 'json', 'bash', 'markdown' },
-        callback = function()
-          vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-          vim.wo[0][0].foldmethod = 'expr'
+          -- Check if parser is available
+          local ok = pcall(vim.treesitter.language.add, lang)
+          if not ok then
+            return
+          end
+
+          -- Enable highlighting
+          pcall(vim.treesitter.start, ev.buf)
+
+          -- Enable treesitter-based folding (window-local options)
+          local win = vim.api.nvim_get_current_win()
+          vim.wo[win].foldmethod = 'expr'
+          vim.wo[win].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
         end,
       })
     end,
