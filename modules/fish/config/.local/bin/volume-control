@@ -4,22 +4,8 @@
 
 set action $argv[1]
 
-# Get the currently active audio sink
-# First, try to find a sink with active streams (actually playing audio)
-set stream_sink_name (wpctl status | grep -A 50 "Streams:" | grep ">" | head -1 | sed 's/.*> \([^:]*\):.*/\1/')
-
-if test -n "$stream_sink_name"
-    # Find the sink ID that matches the stream's sink name (using grep -F for literal string matching)
-    set active_sink (wpctl status | awk '/Sinks:/,/Sources:/' | grep -F "$stream_sink_name" | head -1 | awk '{print $2}' | tr -d '.')
-else
-    # No active streams, use the default sink (marked with *)
-    set active_sink (wpctl status | awk '/Sinks:/,/Sources:/' | grep "\*" | head -1 | awk '{print $3}' | tr -d '.')
-end
-
-# Fallback to default if active_sink is still empty
-if test -z "$active_sink"
-    set active_sink "@DEFAULT_AUDIO_SINK@"
-end
+# Always use the default audio sink - use 'fedpunk audio select' to change it
+set active_sink "@DEFAULT_AUDIO_SINK@"
 
 # Apply volume change
 switch $action
