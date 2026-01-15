@@ -16,7 +16,6 @@ modules:
   - btop
   - yazi
   - gh
-  - claude
   - dev-extras
   - fonts
   - kitty
