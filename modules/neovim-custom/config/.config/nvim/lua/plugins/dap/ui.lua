@@ -50,14 +50,14 @@ function M.setup(dap, dapui)
     dapui.open()
   end
 
-  -- Auto-close UI when debugging stops
-  dap.listeners.before.event_terminated['dapui_config'] = function()
-    dapui.close()
-  end
+  -- Don't auto-close UI when debugging stops (keep it open for inspection)
+  -- dap.listeners.before.event_terminated['dapui_config'] = function()
+  --   dapui.close()
+  -- end
 
-  dap.listeners.before.event_exited['dapui_config'] = function()
-    dapui.close()
-  end
+  -- dap.listeners.before.event_exited['dapui_config'] = function()
+  --   dapui.close()
+  -- end
 end
 
 return M

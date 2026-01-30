@@ -12,3 +12,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Disable folding for markdown files
+vim.api.nvim_create_autocmd('FileType', {
+  desc = 'Disable folding for markdown',
+  group = vim.api.nvim_create_augroup('markdown-no-fold', { clear = true }),
+  pattern = { 'markdown' },
+  callback = function()
+    vim.wo.foldmethod = 'manual'
+    vim.wo.foldenable = false
+  end,
+})
+

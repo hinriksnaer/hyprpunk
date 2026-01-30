@@ -38,8 +38,17 @@ function M.setup(dap)
       request = 'launch',
       name = 'Python: current file',
       program = '${file}',
-      console = 'internalConsole',
+      console = 'integratedTerminal',
       subProcess = true,
+      -- Break on uncaught exceptions
+      exceptionOptions = {
+        {
+          path = {
+            { names = { 'Python Exceptions' } },
+          },
+          breakMode = 'unhandled',
+        },
+      },
     })
   end, { desc = 'Debug Python (debugpy)' })
 
