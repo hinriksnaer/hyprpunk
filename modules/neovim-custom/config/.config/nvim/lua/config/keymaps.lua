@@ -5,8 +5,10 @@
 -- See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
--- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Diagnostic location list' })
+-- LSP keymaps
+vim.keymap.set('n', '<leader>lq', vim.diagnostic.setloclist, { desc = 'Diagnostic location list' })
+vim.keymap.set('n', '<leader>lr', '<cmd>LspRestart<CR>', { desc = 'Restart LSP' })
+vim.keymap.set('n', '<leader>li', '<cmd>LspInfo<CR>', { desc = 'LSP Info' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -55,6 +57,28 @@ vim.keymap.set('n', ']b', '<cmd>bnext<CR>', { desc = 'Next buffer' })
 -- Quick switch to alternate buffer
 vim.keymap.set('n', '<leader><leader>', '<cmd>e#<CR>', { desc = 'Switch to alternate buffer' })
 
--- Close buffer without closing window (using snacks.nvim for smart delete)
+-- Buffer management
 -- Note: <leader>bd is defined in snacks.lua and uses Snacks.bufdelete()
+vim.keymap.set('n', '<leader>bn', '<cmd>enew<CR>', { desc = 'New buffer' })
 vim.keymap.set('n', '<leader>bD', '<cmd>%bd|e#|bd#<CR>', { desc = 'Delete all buffers except current' })
+
+-- Quickfix list navigation
+vim.keymap.set('n', '<leader>qo', '<cmd>copen<CR>', { desc = 'Open quickfix' })
+vim.keymap.set('n', '<leader>qc', '<cmd>cclose<CR>', { desc = 'Close quickfix' })
+vim.keymap.set('n', '<leader>qn', '<cmd>cnext<CR>', { desc = 'Next quickfix item' })
+vim.keymap.set('n', '<leader>qp', '<cmd>cprev<CR>', { desc = 'Previous quickfix item' })
+vim.keymap.set('n', '[q', '<cmd>cprev<CR>', { desc = 'Previous quickfix item' })
+vim.keymap.set('n', ']q', '<cmd>cnext<CR>', { desc = 'Next quickfix item' })
+
+-- Location list navigation (for LSP diagnostics)
+vim.keymap.set('n', '<leader>qlo', '<cmd>lopen<CR>', { desc = 'Open location list' })
+vim.keymap.set('n', '<leader>qlc', '<cmd>lclose<CR>', { desc = 'Close location list' })
+vim.keymap.set('n', '[l', '<cmd>lprev<CR>', { desc = 'Previous location item' })
+vim.keymap.set('n', ']l', '<cmd>lnext<CR>', { desc = 'Next location item' })
+
+-- Window management
+vim.keymap.set('n', '<leader>wv', '<cmd>vsplit<CR>', { desc = 'Vertical split' })
+vim.keymap.set('n', '<leader>ws', '<cmd>split<CR>', { desc = 'Horizontal split' })
+vim.keymap.set('n', '<leader>wc', '<cmd>close<CR>', { desc = 'Close window' })
+vim.keymap.set('n', '<leader>wo', '<cmd>only<CR>', { desc = 'Close other windows' })
+vim.keymap.set('n', '<leader>w=', '<C-w>=', { desc = 'Equalize window sizes' })

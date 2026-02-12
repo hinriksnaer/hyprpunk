@@ -7,6 +7,12 @@ function M.setup(dap, dapui)
   -- Toggle breakpoint (quick access without entering Debug Mode)
   vim.keymap.set('n', '<leader>db', dap.toggle_breakpoint, { desc = 'Toggle Breakpoint' })
 
+  -- Continue/Start debugging (quick access without entering Debug Mode)
+  vim.keymap.set('n', '<leader>dc', dap.continue, { desc = 'Continue/Start' })
+
+  -- Terminate debugging
+  vim.keymap.set('n', '<leader>dt', dap.terminate, { desc = 'Terminate' })
+
   -- Evaluate selection in visual mode (can't be in Hydra)
   vim.keymap.set('v', '<leader>de', dapui.eval, { desc = 'Evaluate Selection' })
 end

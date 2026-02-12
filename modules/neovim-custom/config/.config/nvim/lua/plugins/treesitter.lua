@@ -9,15 +9,6 @@ return {
     dependencies = {
       { 'folke/which-key.nvim' },
     },
-    keys = function()
-      local wk = require 'which-key'
-      wk.add {
-        { '<leader>T', group = '󰦨 Treesitter' },
-        { '<leader>Ti', '<cmd>TSInstallInfo<cr>', desc = 'Install info' },
-        { '<leader>Tu', '<cmd>TSUpdate<cr>', desc = 'Update parsers' },
-      }
-      return {}
-    end,
     opts = {
       ensure_installed = {
         'bash',

@@ -25,10 +25,11 @@ function M.setup(dap, dapui)
         size = 0.25,
         position = 'right',
       },
-      -- Bottom panel: REPL
+      -- Bottom panel: Console and REPL
       {
         elements = {
-          { id = 'repl', size = 1.0 },
+          { id = 'console', size = 0.6 },  -- Program output (stdout/stderr)
+          { id = 'repl', size = 0.4 },     -- REPL commands
         },
         size = 0.25,
         position = 'bottom',

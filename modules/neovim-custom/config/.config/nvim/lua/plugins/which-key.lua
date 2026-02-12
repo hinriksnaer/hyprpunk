@@ -43,20 +43,24 @@ return {
     },
 
     -- Document existing key chains
-    -- Note: 'Find' group is defined in fzf-lua.lua
     spec = {
-      { '<leader>b', group = '󰓩 Buffer' },
-      { '<leader>c', group = 'Code' },
-      { '<leader>d', group = 'Debug' },
-      { '<leader>g', group = 'Git' },
-      { '<leader>gt', group = 'Toggle' },
-      { '<leader>l', group = 'LSP' },
-      { '<leader>m', group = 'Messages' },
-      { '<leader>n', group = 'Notes' },
-      { '<leader>s', group = 'Session' },
-      { '<leader>T', group = 'Treesitter' },
-      { '<leader>u', group = 'UI' },
-      { '<leader>w', group = 'Windows' },
+      -- Main groups
+      { '<leader>f', group = ' Find' }, -- fzf-lua bindings
+      { '<leader>g', group = ' Git' }, -- gitsigns, diffview, lazygit
+      { '<leader>l', group = ' LSP' }, -- LSP diagnostics & info
+      { '<leader>c', group = ' Code' }, -- LSP code actions
+      { '<leader>b', group = '󰓩 Buffer' }, -- Buffer management
+      { '<leader>w', group = '󰖯 Window' }, -- Window management (via smart-splits Ctrl+hjkl, Alt+hjkl)
+      { '<leader>q', group = ' Quickfix' }, -- Quickfix & location list
+      { '<leader>s', group = '󰁯 Session' }, -- Session management
+      { '<leader>h', group = '󰛢 Harpoon' }, -- Harpoon file marks
+      { '<leader>d', group = ' Debug' }, -- DAP debugging
+
+      -- Git subgroups
+      { '<leader>gt', group = 'Toggle' }, -- Git toggles (blame, deleted)
+
+      -- Quickfix subgroups
+      { '<leader>ql', group = 'Location List' }, -- Location list operations
     },
   },
 }

@@ -104,8 +104,6 @@ return {
     -- Set up keybindings
     local wk = require 'which-key'
     wk.add {
-      { '<leader>f', group = ' Find' },
-
       -- Files and buffers
       {
         '<leader>ff',

@@ -39,7 +39,7 @@ function M.setup(dap)
       name = 'Python: current file',
       program = '${file}',
       console = 'integratedTerminal',
-      subProcess = true,
+      subProcess = false,
       -- Break on uncaught exceptions
       exceptionOptions = {
         {
