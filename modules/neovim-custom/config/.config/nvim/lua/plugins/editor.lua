@@ -1,19 +1,4 @@
 return {
-  -- Detect tabstop and shiftwidth automatically
-  {
-    'NMAC427/guess-indent.nvim',
-    event = 'BufReadPre',
-    opts = {},
-  },
-
-  -- Highlight todo, notes, etc in comments
-  {
-    'folke/todo-comments.nvim',
-    event = 'VimEnter',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = { signs = false },
-  },
-
   -- Collection of various small independent plugins/modules
   {
     'echasnovski/mini.nvim',
@@ -55,24 +40,40 @@ return {
         return '%2l:%-2v'
       end
 
-      -- ... and there is more!
-      --  Check out: https://github.com/echasnovski/mini.nvim
-    end,
-  },
+      -- Animated indent scope indicator
+      require('mini.indentscope').setup {
+        symbol = '│',
+        options = { try_as_border = true },
+      }
 
-  -- Visual indent guides
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    main = 'ibl',
-    opts = {
-      indent = {
-        char = '│',
-      },
-      scope = {
-        show_start = false,
-        show_end = false,
-      },
-    },
+      -- Auto-detect indentation and other useful defaults
+      require('mini.basics').setup {
+        options = {
+          extra_ui = true,
+        },
+        mappings = {
+          basic = false, -- Don't override our custom keymaps
+        },
+      }
+
+      -- Highlight TODO/FIXME/HACK/NOTE in comments
+      require('mini.hipatterns').setup {
+        highlighters = {
+          fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+          hack  = { pattern = '%f[%w]()HACK()%f[%W]',  group = 'MiniHipatternsHack'  },
+          todo  = { pattern = '%f[%w]()TODO()%f[%W]',  group = 'MiniHipatternsTodo'  },
+          note  = { pattern = '%f[%w]()NOTE()%f[%W]',  group = 'MiniHipatternsNote'  },
+        },
+      }
+
+      -- Smart buffer deletion (close buffer without closing window)
+      require('mini.bufremove').setup()
+
+      -- Highlight word under cursor
+      require('mini.cursorword').setup {
+        delay = 100,
+      }
+    end,
   },
 
   -- LSP Configuration (lazydev is a dependency)

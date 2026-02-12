@@ -58,7 +58,9 @@ vim.keymap.set('n', ']b', '<cmd>bnext<CR>', { desc = 'Next buffer' })
 vim.keymap.set('n', '<leader><leader>', '<cmd>e#<CR>', { desc = 'Switch to alternate buffer' })
 
 -- Buffer management
--- Note: <leader>bd is defined in snacks.lua and uses Snacks.bufdelete()
+vim.keymap.set('n', '<leader>bd', function()
+  require('mini.bufremove').delete()
+end, { desc = 'Delete Buffer' })
 vim.keymap.set('n', '<leader>bn', '<cmd>enew<CR>', { desc = 'New buffer' })
 vim.keymap.set('n', '<leader>bD', '<cmd>%bd|e#|bd#<CR>', { desc = 'Delete all buffers except current' })
 

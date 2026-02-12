@@ -5,14 +5,14 @@ return {
   event = 'BufReadPost',
   opts = {
     suggestion = {
-      enabled = not vim.g.ai_cmp,
+      enabled = true,
       auto_trigger = true,
-      hide_during_completion = vim.g.ai_cmp,
+      hide_during_completion = true, -- Hide ghost text when blink menu is open
       keymap = {
-        accept = '<C-y>',      -- Ctrl+y to accept (common completion binding)
+        accept = '<M-l>',     -- Alt+l to accept ghost text (not <C-y>, that's for blink)
         next = '<M-]>',
         prev = '<M-[>',
-        dismiss = '<C-e>',     -- Ctrl+e to dismiss (common completion binding)
+        dismiss = '<C-]>',
       },
     },
     panel = { enabled = false },

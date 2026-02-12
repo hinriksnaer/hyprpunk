@@ -3,6 +3,10 @@ return {
   event = 'VimEnter',
   version = '1.*',
   dependencies = {
+    -- Copilot integration for blink.cmp
+    {
+      'giuxtaposition/blink-cmp-copilot',
+    },
     -- Snippet Engine
     {
       'L3MON4D3/LuaSnip',
@@ -66,6 +70,9 @@ return {
       -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
       -- Adjusts spacing to ensure icons are aligned
       nerd_font_variant = 'mono',
+      kind_icons = {
+        Copilot = '',
+      },
     },
 
     completion = {
@@ -75,9 +82,15 @@ return {
     },
 
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'lazydev' },
+      default = { 'lsp', 'path', 'snippets', 'lazydev', 'copilot' },
       providers = {
         lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+        copilot = {
+          name = 'copilot',
+          module = 'blink-cmp-copilot',
+          score_offset = 100,
+          async = true,
+        },
       },
     },
 
