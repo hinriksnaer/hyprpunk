@@ -1,15 +1,17 @@
 return {
   'stevearc/oil.nvim',
-  dependencies = { 'nvim-tree/nvim-web-devicons' },
+  dependencies = {
+    { 'echasnovski/mini.icons', opts = {} }
+  },
   opts = {
     -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
     default_file_explorer = true,
     -- Columns to display
     columns = {
       'icon',
-      -- 'permissions',
-      -- 'size',
-      -- 'mtime',
+      'permissions',
+      'size',
+      'mtime',
     },
     -- Buffer-local options for oil buffers
     buf_options = {
@@ -56,14 +58,14 @@ return {
     use_default_keymaps = true,
     view_options = {
       -- Show files and directories that start with "."
-      show_hidden = false,
+      show_hidden = true,
       -- This function defines what is considered a "hidden" file
       is_hidden_file = function(name, bufnr)
         return vim.startswith(name, '.')
       end,
       -- This function defines what will never be shown, even when `show_hidden` is set
       is_always_hidden = function(name, bufnr)
-        return false
+        return name == '.git' or name == 'node_modules'
       end,
       sort = {
         -- sort order can be "asc" or "desc"
@@ -111,17 +113,16 @@ return {
         winblend = 0,
       },
     },
+    -- Configuration for the file preview window
+    preview_win = {
+      -- Update preview as cursor moves
+      update_on_cursor_moved = true,
+    },
   },
   keys = {
     {
       '-',
-      function()
-        require('oil').open()
-        -- Open preview after a short delay
-        vim.defer_fn(function()
-          require('oil.actions').preview.callback()
-        end, 50)
-      end,
+      '<cmd>Oil<cr>',
       desc = 'Open parent directory (Oil)',
     },
   },
