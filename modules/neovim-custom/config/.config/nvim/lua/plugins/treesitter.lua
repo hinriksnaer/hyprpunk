@@ -72,10 +72,12 @@ return {
           -- Enable highlighting
           pcall(vim.treesitter.start, ev.buf)
 
-          -- Enable treesitter-based folding (window-local options)
-          local win = vim.api.nvim_get_current_win()
-          vim.wo[win].foldmethod = 'expr'
-          vim.wo[win].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+          -- Enable treesitter-based folding (window-local options) - but not for markdown
+          if vim.bo[ev.buf].filetype ~= 'markdown' then
+            local win = vim.api.nvim_get_current_win()
+            vim.wo[win].foldmethod = 'expr'
+            vim.wo[win].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+          end
         end,
       })
     end,
