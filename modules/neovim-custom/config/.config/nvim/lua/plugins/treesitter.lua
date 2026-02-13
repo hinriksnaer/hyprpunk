@@ -3,15 +3,25 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     branch = 'main',
-    build = ':TSUpdate',
-    event = { 'BufReadPost', 'BufNewFile', 'VeryLazy' },
-    cmd = { 'TSUpdate', 'TSInstall', 'TSInstallInfo', 'TSUninstall' },
+    version = false,
+    lazy = false,
+    build = function()
+      local TS = require('nvim-treesitter')
+      if not TS.get_installed then
+        vim.notify('Please restart Neovim and run :TSUpdate', vim.log.levels.ERROR)
+        return
+      end
+      TS.update(nil, { summary = true })
+    end,
+    cmd = { 'TSUpdate', 'TSInstall', 'TSLog', 'TSUninstall' },
     dependencies = {
       { 'folke/which-key.nvim' },
     },
     opts = {
       ensure_installed = {
         'bash',
+        'c',
+        'cpp',
         'css',
         'html',
         'javascript',
@@ -26,57 +36,46 @@ return {
         'vim',
         'vimdoc',
       },
+      highlight = { enable = true },
+      indent = { enable = true },
     },
     config = function(_, opts)
-      local TS = require 'nvim-treesitter'
+      local TS = require('nvim-treesitter')
 
-      -- Sanity check for new API
-      if not TS.setup then
-        vim.notify('nvim-treesitter: please update to main branch', vim.log.levels.ERROR)
+      -- Sanity check
+      if not TS.get_installed then
+        vim.notify('Please update nvim-treesitter via :Lazy', vim.log.levels.ERROR)
         return
       end
 
-      -- Setup treesitter with opts
+      -- Setup treesitter
       TS.setup(opts)
 
       -- Install missing parsers
-      local installed = TS.get_installed and TS.get_installed() or {}
-      local installed_set = {}
-      for _, lang in ipairs(installed) do
-        installed_set[lang] = true
-      end
-
+      local installed = TS.get_installed()
       local to_install = vim.tbl_filter(function(lang)
-        return not installed_set[lang]
+        return not vim.tbl_contains(installed, lang)
       end, opts.ensure_installed or {})
 
       if #to_install > 0 then
-        TS.install(to_install)
+        TS.install(to_install, { summary = true })
       end
 
-      -- Single autocmd for all treesitter features
+      -- Enable features per filetype
       vim.api.nvim_create_autocmd('FileType', {
         group = vim.api.nvim_create_augroup('treesitter_setup', { clear = true }),
         callback = function(ev)
-          local lang = vim.treesitter.language.get_lang(ev.match)
-          if not lang then
-            return
-          end
-
-          -- Check if parser is available
-          local ok = pcall(vim.treesitter.language.add, lang)
-          if not ok then
-            return
-          end
+          local ft = ev.match
+          local lang = vim.treesitter.language.get_lang(ft)
 
           -- Enable highlighting
-          pcall(vim.treesitter.start, ev.buf)
+          if opts.highlight and opts.highlight.enable then
+            pcall(vim.treesitter.start, ev.buf)
+          end
 
-          -- Enable treesitter-based folding (window-local options) - but not for markdown
-          if vim.bo[ev.buf].filetype ~= 'markdown' then
-            local win = vim.api.nvim_get_current_win()
-            vim.wo[win].foldmethod = 'expr'
-            vim.wo[win].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+          -- Enable indentation
+          if opts.indent and opts.indent.enable then
+            vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
           end
         end,
       })

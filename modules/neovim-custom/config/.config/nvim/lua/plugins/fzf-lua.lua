@@ -171,11 +171,23 @@ return {
         desc = 'Colorschemes',
       },
 
-      -- LSP (if needed)
+      -- LSP
       {
         '<leader>fs',
         '<cmd>FzfLua lsp_document_symbols<cr>',
         desc = 'Document Symbols',
+      },
+
+      -- Git file search
+      {
+        '<leader>fG',
+        '<cmd>FzfLua git_status<cr>',
+        desc = 'Git changed files',
+      },
+      {
+        '<leader>fC',
+        '<cmd>FzfLua git_commits<cr>',
+        desc = 'Git commits',
       },
     }
   end,

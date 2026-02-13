@@ -14,7 +14,8 @@ packages:
   dnf:
     - ripgrep
     - fzf
-  cargo: []
+  cargo: 
+    - tree-sitter-cli
   npm: []
 
 stow:

@@ -6,7 +6,10 @@ return {
   dependencies = {
     'rcarriga/nvim-dap-ui',
     'nvim-neotest/nvim-nio',
-    'theHamsta/nvim-dap-virtual-text',
+    {
+      'theHamsta/nvim-dap-virtual-text',
+      opts = {},
+    },
   },
   config = function()
     local dap = require('dap')
@@ -18,8 +21,5 @@ return {
     require('plugins.dap.python').setup(dap)
     require('plugins.dap.ui').setup(dap, dapui)
     require('plugins.dap.keymaps').setup(dap, dapui)
-
-    -- Setup virtual text (inline variable values)
-    require('nvim-dap-virtual-text').setup({})
   end,
 }
