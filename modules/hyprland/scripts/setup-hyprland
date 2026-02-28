@@ -36,8 +36,22 @@ if test -f ~/.config/hyprpunk/active-profile
 else if test -f ~/.local/share/fedpunk/.active-profile
     set active_mode (cat ~/.local/share/fedpunk/.active-profile 2>/dev/null)
 else
-    # Fallback: try to detect from profile path
-    set active_mode ""
+    # Auto-detect mode based on hardware
+    ui-info "No active profile found, auto-detecting mode..."
+
+    # Check if battery exists (laptop detection)
+    if test -d /sys/class/power_supply/BAT0 -o -d /sys/class/power_supply/BAT1
+        set active_mode "laptop"
+        ui-info "Battery detected, using laptop mode"
+    else
+        set active_mode "desktop"
+        ui-info "No battery detected, using desktop mode"
+    end
+
+    # Persist the detected mode for future runs
+    mkdir -p ~/.config/hyprpunk
+    echo $active_mode > ~/.config/hyprpunk/active-profile
+    ui-success "Mode persisted to ~/.config/hyprpunk/active-profile"
 end
 
 # If we found the mode and its hypr.conf exists, link it
@@ -56,7 +70,7 @@ source = '"$profile_root"'/modes/'"$active_mode"'/hypr.conf" > ~/.config/hypr/ac
         ui-warning "Failed to link mode configuration"
     end
 else
-    ui-info "No mode-specific Hyprland configuration found (this is OK)"
+    ui-warning "Mode configuration file not found: $profile_root/modes/$active_mode/hypr.conf"
 end
 
 # Update user directories
