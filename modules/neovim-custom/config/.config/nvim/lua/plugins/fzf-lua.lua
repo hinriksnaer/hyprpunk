@@ -101,6 +101,9 @@ return {
       },
     }
 
+    -- Register as vim.ui.select provider (used by DAP, LSP code actions, etc.)
+    require('fzf-lua').register_ui_select()
+
     -- Set up keybindings
     local wk = require 'which-key'
     wk.add {
