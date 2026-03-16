@@ -103,13 +103,14 @@
   "group/tray-expander": {
     "orientation": "inherit",
     "drawer": {
-      "transition-duration": 600,
-      "children-class": "tray-group-item"
+      "transition-duration": 500,
+      "children-class": "tray-group-item",
+      "transition-left-to-right": false
     },
     "modules": ["custom/expand-icon", "tray"]
   },
   "custom/expand-icon": {
-    "format": "",
+    "format": "󰕰",
     "tooltip": false
   },
   "tray": {

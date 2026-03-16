@@ -124,8 +124,9 @@ window#waybar {
 }
 
 #custom-expand-icon {
-  font-size: 9px;
-  padding: 0 6px;
+  font-size: 12px;
+  padding: 0 8px;
+  color: @foreground;
 }
 
 tooltip {
